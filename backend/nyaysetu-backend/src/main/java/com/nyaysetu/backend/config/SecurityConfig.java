@@ -95,10 +95,11 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         // SAFE DEFAULT (Localhost fallback)
         List<String> defaultOrigins = Arrays.asList(
-                "http://localhost:5173",
-                "http://localhost:3000",
-                "http://localhost"
-        );
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost",
+        "https://nyaysetu-lovat.vercel.app"
+);
 
         if (allowedOrigins != null && !allowedOrigins.trim().isEmpty()) {
             List<String> origins = Arrays.stream(allowedOrigins.split(","))
@@ -285,7 +286,7 @@ public class SecurityConfig {
                         ).hasAnyRole("POLICE", "JUDGE", "SUPER_JUDGE", "ADMIN")
 
                         // ── Everything else requires authentication ────────────────────────
-                        .anyRequest().authenticated();
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
